@@ -32,6 +32,16 @@
               >
             </li>
           </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ name: 'cart' }">
+                <span class="badge rounded-pill bg-success">{{
+                  countCartItems
+                }}</span>
+                <i class="bi bi-basket-fill" style="font-size: 24px"></i>
+              </router-link>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
@@ -39,7 +49,15 @@
 </template>
 
 <script>
-export default {};
+import { computed } from "@vue/runtime-core";
+import { useStore } from "vuex";
+export default {
+  setup() {
+    const store = useStore();
+    const countCartItems = computed(() => store.getters["cart/count"]);
+    return { countCartItems };
+  },
+};
 </script>
 
 <style>
